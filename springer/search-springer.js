@@ -6,6 +6,7 @@ module.exports = function(){
 
       return {
             execute: function(){
+                  console.log('Application Start... Wait!');
                   fs.exists('output.csv', function(exists) {
                       if (exists) {
                           fs.unlinkSync('output.csv');
@@ -45,6 +46,8 @@ module.exports = function(){
                       articles = [];
                       count = 1;
                       var page = 0;
+
+                      console.log('Reading pages NOW!');
                       while(page < length){ //abre o while(page < length)
                           url = 'http://link.springer.com/search/page/' + (page+1) + '?query=%28%22Wireless+Sensor%22+OR+%22Sensor+networks%22+OR+%22Actuator+Networks%22+OR+%22Internet+of+Things%22+OR+%22Web+of+Things%22%29+AND+%28%22systematic+literature+review%22+OR+%22systematic+review%22+OR+%22systematic+mapping%22+OR+%22mapping+study%22+OR+%22systematic+literature+mapping%22%29';
                           //articles.push = ('1', '2', '3'); //=======> reconhece article até aqui; <===========
@@ -116,13 +119,14 @@ module.exports = function(){
                                             articles.push(json);
                                          }
 
-                                         count++;
+                                         count = count + 1;
                                          if(count == number_articles){
+                                               console.log('Writing articles in file.');
                                                json2csv({ data: articles, fields: fields }, function(err, csv) {
                                                  if (err) console.log(err);
                                                  fs.writeFile('output.csv', csv, function(err) {
                                                    if (err) throw err;
-                                                   console.log('file saved');
+                                                   console.log('File Saved!\nApplication finished, thanks!');
 
                                                  });
                                                });
