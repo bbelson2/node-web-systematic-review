@@ -1,6 +1,6 @@
-"name": "node-web-systematic-review"
-"version": "1.0.0"
-"author": "Luis Augusto Melo Rohten"
-"date": 05/02/2016
+Name: node-web-systematic-review
+Version: 1.0.0
+Author: Luis Augusto Melo Rohten
+Date: 05/02/2016
 
 Execute: node app.js
