@@ -16,6 +16,6 @@
     "serve-favicon": "~2.3.0",
     "request": "*",
     "cheerio": "*",
-    "json2csv": "*",
+    "json2csv": "*"
   }
 }

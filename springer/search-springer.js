@@ -13,14 +13,14 @@ module.exports = function(){
                       }
                   });
 
-                  main_page = 'http://link.springer.com/search?query=%28%22Wireless+Sensor%22+OR+%22Sensor+networks%22+OR+%22Actuator+Networks%22+OR+%22Internet+of+Things%22+OR+%22Web+of+Things%22%29+AND+%28%22systematic+literature+review%22+OR+%22systematic+review%22+OR+%22systematic+mapping%22+OR+%22mapping+study%22+OR+%22systematic+literature+mapping%22%29';
-
+                  //main_page = 'http://link.springer.com/search?query=%28%22Wireless+Sensor%22+OR+%22Sensor+networks%22+OR+%22Actuator+Networks%22+OR+%22Internet+of+Things%22+OR+%22Web+of+Things%22%29+AND+%28%22systematic+literature+review%22+OR+%22systematic+review%22+OR+%22systematic+mapping%22+OR+%22mapping+study%22+OR+%22systematic+literature+mapping%22%29';
+                  main_page = 'http://link.springer.com/search?query=%28%22Wireless+Sensor%22+OR+%22Sensor+networks%22+OR+%22Actuator+Networks%22+OR+%22Internet+of+Things%22+OR+%22Web+of+Things%22%29+AND+%28%28%22Model-Driven%22+OR+%22MDA%22+OR+%22MDE%22+OR+%22MDD%22%29+OR+%28%22BPMN%22+OR+%22BPM%22+OR+%22Business+Process%22%29%29';
                   var length = 0;
                   var title, abstract, keywords, authors, year;
                   var fields = ['title', 'abstract', 'keywords', 'authors', 'year'];
                   var number_articles = 0;
                   //var logStream = fs.createWriteStream('output.csv', {'flags': 'a'});
-                  //console.log(articles);
+
                   request(main_page, function(error, response, html){ //<-- abre o request(main_page
                   if(!error){ //<-- abre o if(!error) do request
                       var $ = cheerio.load(html);
@@ -31,7 +31,7 @@ module.exports = function(){
 
                       $('h1.number-of-search-results-and-search-terms').filter(function(){
                             number_articles = $(this).children().first().text();
-                            //console.log('number-articles:' + number_articles);
+                            console.log('number-articles:' + number_articles);
                       });
 
 
@@ -48,9 +48,10 @@ module.exports = function(){
                       var page = 0;
 
                       console.log('Reading pages NOW!');
-                      while(page < length){ //abre o while(page < length)
-                          url = 'http://link.springer.com/search/page/' + (page+1) + '?query=%28%22Wireless+Sensor%22+OR+%22Sensor+networks%22+OR+%22Actuator+Networks%22+OR+%22Internet+of+Things%22+OR+%22Web+of+Things%22%29+AND+%28%22systematic+literature+review%22+OR+%22systematic+review%22+OR+%22systematic+mapping%22+OR+%22mapping+study%22+OR+%22systematic+literature+mapping%22%29';
-                          //articles.push = ('1', '2', '3'); //=======> reconhece article até aqui; <===========
+                      while(page <= length){ //abre o while(page < length)
+                          //url = 'http://link.springer.com/search/page/' + (page+1) + '?query=%28%22Wireless+Sensor%22+OR+%22Sensor+networks%22+OR+%22Actuator+Networks%22+OR+%22Internet+of+Things%22+OR+%22Web+of+Things%22%29+AND+%28%22systematic+literature+review%22+OR+%22systematic+review%22+OR+%22systematic+mapping%22+OR+%22mapping+study%22+OR+%22systematic+literature+mapping%22%29';
+                          url = 'http://link.springer.com/search/page/' + (page+1) + '?query=%28%22Wireless+Sensor%22+OR+%22Sensor+networks%22+OR+%22Actuator+Networks%22+OR+%22Internet+of+Things%22+OR+%22Web+of+Things%22%29+AND+%28%28%22Model-Driven%22+OR+%22MDA%22+OR+%22MDE%22+OR+%22MDD%22%29+OR+%28%22BPMN%22+OR+%22BPM%22+OR+%22Business+Process%22%29%29';
+
                           request(url, function(error, response, html){ //abre o request(url
                           if(!error){//abre o error do request(url
                               var $ = cheerio.load(html);
@@ -58,8 +59,8 @@ module.exports = function(){
                                   url = 'http://link.springer.com' + $(this).attr('href');
 
                                   request(url, function(error, response, html){
-                                        //console.log('count: ' + count);
-                                    var json = { title : "", abstract : "", keywords : "", authors : "", year : ""};
+                                    //var json
+                                    json = { title : "", abstract : "", keywords : "", authors : "", year : ""};
                                     if(!error){
                                         var $ = cheerio.load(html);
                                         number = i+1;
@@ -105,7 +106,7 @@ module.exports = function(){
                                             json.year = $('input[name="copyrightyear"]').prop('value');
                                         })
 
-                                        if(((JSON.stringify(json, 4, 4)).toLowerCase().indexOf("wireless sensor") > -1 ||
+                                        /*if(((JSON.stringify(json, 4, 4)).toLowerCase().indexOf("wireless sensor") > -1 ||
                                       (JSON.stringify(json, 4, 4)).toLowerCase().indexOf("wireless networks") > -1||
                                     (JSON.stringify(json, 4, 4)).toLowerCase().indexOf("actuator networks") > -1 ||
                                   (JSON.stringify(json, 4, 4)).toLowerCase().indexOf("internet of things") > -1 ||
@@ -114,12 +115,27 @@ module.exports = function(){
                                     (JSON.stringify(json, 4, 4)).toLowerCase().indexOf("systematic review") > -1 ||
                                      (JSON.stringify(json, 4, 4)).toLowerCase().indexOf("systematic mapping") > -1 ||
                                        (JSON.stringify(json, 4, 4)).toLowerCase().indexOf("mapping study") > -1 ||
-                                         (JSON.stringify(json, 4, 4)).toLowerCase().indexOf("systematic literature mapping") > -1)) {
-                                            //fs.appendFile('output.txt', JSON.stringify(json,4,4));
-                                            articles.push(json);
+                                         (JSON.stringify(json, 4, 4)).toLowerCase().indexOf("systematic literature mapping") > -1))*/
+
+
+                                         if(((JSON.stringify(json, 4, 4)).toLowerCase().indexOf("wireless sensor") > -1 ||
+                                      (JSON.stringify(json, 4, 4)).toLowerCase().indexOf("sensor networks") > -1||
+                                    (JSON.stringify(json, 4, 4)).toLowerCase().indexOf("actuator networks") > -1 ||
+                                  (JSON.stringify(json, 4, 4)).toLowerCase().indexOf("internet of things") > -1 ||
+                                (JSON.stringify(json, 4, 4)).toLowerCase().indexOf("web of things") > -1) &&
+                                  ((JSON.stringify(json, 4, 4)).toLowerCase().indexOf("model-driven") > -1 ||
+                                    (JSON.stringify(json, 4, 4)).toLowerCase().indexOf("mda") > -1 ||
+                                     (JSON.stringify(json, 4, 4)).toLowerCase().indexOf("mde") > -1 ||
+                                       (JSON.stringify(json, 4, 4)).toLowerCase().indexOf("mdd") > -1 ||
+                                          (JSON.stringify(json, 4, 4)).toLowerCase().indexOf("bpmn") > -1 ||
+                                                (JSON.stringify(json, 4, 4)).toLowerCase().indexOf("bpm") > -1 ||
+                                                      (JSON.stringify(json, 4, 4)).toLowerCase().indexOf("business process") > -1)) {
+                                                            //console.log(JSON.stringify(json,4,4));
+                                                            //fs.appendFile('output.txt', JSON.stringify(json,4,4));
+                                                            articles.push(json);
                                          }
 
-                                         count = count + 1;
+                                         //console.log(count);
                                          if(count == number_articles){
                                                console.log('Writing articles in file.');
                                                json2csv({ data: articles, fields: fields }, function(err, csv) {
@@ -131,6 +147,9 @@ module.exports = function(){
                                                  });
                                                });
                                          }
+
+
+                                         count = count + 1;
                                     }
                                     else {
                                         console.log('Erro: '+error);

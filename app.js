@@ -5,7 +5,7 @@
 "date": 05/02/2016,
 */
 
-var express = require('express');
+/*var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -29,13 +29,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
+app.use('/', routes);*/
 //app.use('/users', users);
 
 //Call springer function!
+if (global.gc) {
+    global.gc();
+} else {
+    console.log('Garbage collection unavailable.  Pass --expose-gc '
+      + 'when launching node to enable forced garbage collection.');
+}
+
 var springer = require('./springer/search-springer');
 springer().execute();
-
+/*
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -68,4 +75,4 @@ app.use(function(err, req, res, next) {
 });
 
 
-module.exports = app;
+module.exports = app;*/
