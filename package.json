@@ -4,7 +4,8 @@
   "private": true,
   "author": "Luis Augusto Melo Rohten",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./app.js",
+    "startold": "node ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
