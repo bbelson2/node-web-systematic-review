@@ -1,11 +1,11 @@
 # Origin 
 This repo is forked from the following:
 
-> Name: node-web-systematic-review
-> Version: 1.0.0
-> Author: Luis Augusto Melo Rohten
-> Date: 05/02/2016
-> Execute: node app.js
+> Name: node-web-systematic-review  
+> Version: 1.0.0  
+> Author: Luis Augusto Melo Rohten  
+> Date: 05/02/2016  
+> Execute: node app.js  
 
 # Purpose
 The main purpose of the script remains the same: to download citations from the SpringerLink web-site.
